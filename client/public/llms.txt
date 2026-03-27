@@ -1,0 +1,28 @@
+# The Clean Burn
+
+> Breaking Free From Porn Without Shame
+
+The Clean Burn is a long-form editorial site about porn addiction recovery. It publishes evidence-based articles grounded in neuroscience, somatic practices, and consciousness traditions. The site contains 300 original articles across five categories: The Brain, The Cost, The Recovery, The Rewire, and The Return.
+
+## Author
+Kalesh — Consciousness Teacher & Writer
+Website: https://kalesh.love
+
+## Categories
+- The Brain: Neuroscience of porn addiction — dopamine, escalation, desensitization
+- The Cost: What porn takes — relationships, intimacy, performance, emotional depth
+- The Recovery: Practical protocols — withdrawal, relapse prevention, support
+- The Rewire: Somatic practices, mindfulness, breathwork, neural rewiring
+- The Return: Real intimacy, healthy sexuality, authentic connection
+
+## Content Approach
+- Cross-traditional: Buddhism, Taoism, Vedanta, neuroscience equally
+- Named researcher citations (Gary Wilson, Andrew Huberman, Gabor Maté, etc.)
+- First-person lived experience markers
+- 30% spiritual/healing thread woven throughout
+- No shame-based language, no moralistic framing
+
+## URL Structure
+- Articles: https://cleanburn.love/{category-slug}/{article-slug}
+- Categories: https://cleanburn.love/category/{category-slug}
+- About: https://cleanburn.love/about

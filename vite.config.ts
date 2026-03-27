@@ -166,6 +166,16 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 6000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('articles.json')) {
+            return 'articles-data';
+          }
+        },
+      },
+    },
   },
   server: {
     port: 3000,
