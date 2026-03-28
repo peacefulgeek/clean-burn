@@ -108,8 +108,7 @@ export default function ArticlePage() {
           alt={article.image_alt || article.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/50 to-[var(--deep)]/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--deep)]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/30 to-transparent" />
       </section>
 
       {/* ═══ ARTICLE CONTENT ═══ */}
