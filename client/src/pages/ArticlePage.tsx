@@ -101,7 +101,7 @@ export default function ArticlePage() {
         />
       )}
 
-      {/* ═══ HERO ═══ */}
+      {/* ═══ HERO IMAGE ═══ */}
       <section className="relative h-[60vh] lg:h-[70vh] overflow-hidden">
         <img
           src={article.hero_url}
