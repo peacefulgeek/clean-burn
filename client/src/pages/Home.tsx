@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import ArticleCard from "@/components/ArticleCard";
-import { getPublishedArticles, getArticlesByCategory, CATEGORIES, SITE_CONFIG } from "@/data";
+import { getPublishedArticles, getArticlesByCategory, getPublishedCount, CATEGORIES, SITE_CONFIG } from "@/data";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -52,7 +52,7 @@ export default function Home() {
               Without Shame
             </h1>
             <p className="text-lg lg:text-xl text-[var(--charcoal)]/60 leading-relaxed max-w-xl mb-8">
-              {SITE_CONFIG.tagline} Neuroscience, somatic practices, and consciousness — woven into 300 articles that meet you where you are.
+              {SITE_CONFIG.tagline} Neuroscience, somatic practices, and consciousness — woven into {getPublishedCount()} articles that meet you where you are.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link

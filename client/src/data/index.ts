@@ -88,6 +88,9 @@ export const SITE_CONFIG = {
 
 const allArticles: Article[] = articlesRaw as Article[];
 
+// Direct access to all articles array
+export const articles: Article[] = allArticles;
+
 export function filterPublished(articles: Article[]): Article[] {
   const now = new Date();
   const today = now.toISOString().split('T')[0];
