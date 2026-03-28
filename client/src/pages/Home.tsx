@@ -1,9 +1,24 @@
+/*
+ * DESIGN: "Luminous Awakening" — Dark, warm, lightly sensual
+ * Hero: Full-bleed cinematic image with text overlay
+ * Sections: Dark cards with amber glow accents
+ */
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import ArticleCard from "@/components/ArticleCard";
 import { getPublishedArticles, getArticlesByCategory, getPublishedCount, CATEGORIES, SITE_CONFIG } from "@/data";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Flame } from "lucide-react";
+
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-main-3ei3EFqp2bDbFtQ6KZRz8r.webp";
+
+const CATEGORY_IMAGES: Record<string, string> = {
+  "the-brain": "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-brain-359PV86y8KzTLEPUJ69jzF.webp",
+  "the-cost": "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-main-3ei3EFqp2bDbFtQ6KZRz8r.webp",
+  "the-recovery": "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-recovery-3LEQuBRfR9zTwD9yU24vMR.webp",
+  "the-rewire": "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-rewire-Gnta5VjUW6fZd2c2j99RRy.webp",
+  "the-return": "https://d2xsxph8kpxj0f.cloudfront.net/310519663309220512/WoF57cygVjqdsBgovRWgpm/hero-return-i5udugQ5ekXXu7YV3fEsfe.webp",
+};
 
 export default function Home() {
   const published = getPublishedArticles();
@@ -34,119 +49,153 @@ export default function Home() {
         }}
       />
 
-      {/* Hero */}
-      <section className="relative bg-[var(--cream)] overflow-hidden">
-        <div className="container py-20 lg:py-32">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="w-8 h-[2px] bg-[var(--gold)]" />
-              <span className="text-xs font-medium text-[var(--charcoal)]/50 uppercase tracking-widest">
+      {/* ═══ HERO — Full-bleed cinematic ═══ */}
+      <section className="relative min-h-[100vh] flex items-end overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src={HERO_IMG}
+            alt="Golden light on dark stone"
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--deep)]/80 to-transparent" />
+        </div>
+
+        {/* Content */}
+        <div className="relative container pb-20 lg:pb-28 pt-32">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3 mb-6 fade-in-up">
+              <Flame className="w-4 h-4 text-[var(--amber)]" />
+              <span className="text-xs font-medium text-[var(--amber)] uppercase tracking-[0.15em]">
                 Evidence-Based Recovery
               </span>
             </div>
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-[var(--charcoal)] leading-[1.1] tracking-tight mb-6">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6 fade-in-up fade-in-up-delay-1">
               Breaking Free
               <br />
-              <span className="text-[var(--gold)]">From Porn</span>
-              <br />
-              Without Shame
+              <span className="text-[var(--amber)]">Without Shame</span>
             </h1>
-            <p className="text-lg lg:text-xl text-[var(--charcoal)]/60 leading-relaxed max-w-xl mb-8">
+            <p className="text-lg lg:text-xl text-white/60 leading-relaxed max-w-lg mb-10 fade-in-up fade-in-up-delay-2">
               {SITE_CONFIG.tagline} Neuroscience, somatic practices, and consciousness — woven into {getPublishedCount()} articles that meet you where you are.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 fade-in-up fade-in-up-delay-3">
               <Link
-                href={`/${published[0]?.category_slug}/${published[0]?.slug}`}
-                className="inline-flex items-center gap-2 bg-[var(--charcoal)] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[var(--charcoal)]/90 transition-colors no-underline"
+                href={featured ? `/${featured.category_slug}/${featured.slug}` : "/category/the-brain"}
+                className="inline-flex items-center gap-2 bg-[var(--amber)] text-[var(--deep)] px-7 py-3.5 rounded-lg text-sm font-semibold hover:bg-[var(--amber-light)] transition-all hover:shadow-lg hover:shadow-[var(--amber)]/20 no-underline"
               >
                 Start Reading <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/quiz"
-                className="inline-flex items-center gap-2 border-2 border-[var(--charcoal)]/20 text-[var(--charcoal)] px-6 py-3 rounded-full text-sm font-medium hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors no-underline"
+                className="inline-flex items-center gap-2 border border-white/20 text-white/80 px-7 py-3.5 rounded-lg text-sm font-medium hover:border-[var(--amber)]/40 hover:text-[var(--amber)] transition-all no-underline"
               >
                 Take the Quiz
               </Link>
             </div>
           </div>
         </div>
-        {/* Decorative dots */}
-        <div className="absolute top-12 right-12 hidden lg:block">
-          <div className="grid grid-cols-5 gap-3">
-            {Array.from({ length: 15 }).map((_, i) => (
-              <span key={i} className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]/30" />
-            ))}
-          </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+          <div className="w-px h-8 bg-gradient-to-b from-transparent to-[var(--amber)]" />
         </div>
       </section>
 
-      {/* Featured Article */}
+      {/* ═══ LATEST ARTICLES ═══ */}
       {featured && (
-        <section className="container py-16 lg:py-20">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="w-2 h-2 rounded-full bg-[var(--gold)]" />
-            <h2 className="font-heading text-sm font-semibold text-[var(--charcoal)]/50 uppercase tracking-wider">
-              Latest
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            <ArticleCard article={featured} variant="featured" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {recent.slice(0, 4).map(a => (
-                <ArticleCard key={a.slug} article={a} />
-              ))}
+        <section className="bg-[var(--deep)] py-20 lg:py-28">
+          <div className="container">
+            <div className="flex items-center gap-3 mb-10">
+              <div className="w-8 h-px bg-[var(--amber)]" />
+              <h2 className="font-heading text-sm font-semibold text-[var(--amber)] uppercase tracking-[0.12em]">
+                Latest
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+              {/* Featured — large */}
+              <div className="lg:col-span-3">
+                <ArticleCard article={featured} variant="featured" />
+              </div>
+              {/* Recent — stacked */}
+              <div className="lg:col-span-2 space-y-6">
+                {recent.slice(0, 4).map((a) => (
+                  <ArticleCard key={a.slug} article={a} variant="compact" />
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Categories */}
+      {/* ═══ CATEGORY SECTIONS ═══ */}
       {CATEGORIES.map((cat, idx) => {
         const catArticles = getArticlesByCategory(cat.slug);
         if (catArticles.length === 0) return null;
+        const isEven = idx % 2 === 0;
         return (
           <section
             key={cat.slug}
-            className={`py-16 lg:py-20 ${idx % 2 === 0 ? 'bg-white' : 'bg-[var(--cream)]/50'}`}
+            className={`py-20 lg:py-28 ${isEven ? "bg-[var(--deep-card)]" : "bg-[var(--deep)]"}`}
           >
             <div className="container">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-[var(--gold)]" />
-                  <h2 className="font-heading text-2xl lg:text-3xl font-bold text-[var(--charcoal)]">
-                    {cat.name}
-                  </h2>
+              {/* Category header with background image */}
+              <div className="relative rounded-2xl overflow-hidden mb-12 h-48 lg:h-56">
+                <img
+                  src={CATEGORY_IMAGES[cat.slug] || HERO_IMG}
+                  alt={cat.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--deep)]/90 via-[var(--deep)]/70 to-transparent" />
+                <div className="absolute inset-0 flex items-center">
+                  <div className="px-8 lg:px-12">
+                    <h2 className="font-heading text-3xl lg:text-4xl font-bold text-white mb-2">
+                      {cat.name}
+                    </h2>
+                    <p className="text-sm text-white/50 max-w-md leading-relaxed">
+                      {cat.description}
+                    </p>
+                  </div>
                 </div>
-                <Link
-                  href={`/category/${cat.slug}`}
-                  className="text-sm font-medium text-[var(--gold)] hover:text-[var(--charcoal)] transition-colors no-underline flex items-center gap-1"
-                >
-                  View all <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
               </div>
-              <p className="text-sm text-[var(--charcoal)]/50 max-w-2xl mb-8">{cat.description}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {catArticles.slice(0, 3).map(a => (
+
+              {/* Articles grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {catArticles.slice(0, 3).map((a) => (
                   <ArticleCard key={a.slug} article={a} />
                 ))}
+              </div>
+
+              <div className="text-center">
+                <Link
+                  href={`/category/${cat.slug}`}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[var(--amber)] hover:text-[var(--amber-glow)] transition-colors no-underline"
+                >
+                  View all {cat.name} articles <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
             </div>
           </section>
         );
       })}
 
-      {/* CTA */}
-      <section className="bg-[var(--charcoal)] py-20 lg:py-24">
-        <div className="container text-center">
-          <h2 className="font-heading text-3xl lg:text-4xl font-bold text-white mb-4">
+      {/* ═══ CTA ═══ */}
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--deep-card)] to-[var(--deep)]" />
+        {/* Ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[var(--amber)]/5 rounded-full blur-3xl" />
+        <div className="relative container text-center">
+          <Flame className="w-8 h-8 text-[var(--amber)] mx-auto mb-6" />
+          <h2 className="font-heading text-3xl lg:text-5xl font-bold text-white mb-4">
             Ready to begin?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
-            Take our 2-minute self-assessment to understand where you are in your recovery journey.
+          <p className="text-white/50 max-w-md mx-auto mb-10 leading-relaxed">
+            Take our 2-minute self-assessment to understand where you are — and where you're going.
           </p>
           <Link
             href="/quiz"
-            className="inline-flex items-center gap-2 bg-[var(--gold)] text-[var(--charcoal)] px-8 py-4 rounded-full text-sm font-semibold hover:bg-[var(--gold)]/90 transition-colors no-underline"
+            className="inline-flex items-center gap-2 bg-[var(--amber)] text-[var(--deep)] px-8 py-4 rounded-lg text-sm font-semibold hover:bg-[var(--amber-light)] transition-all hover:shadow-lg hover:shadow-[var(--amber)]/20 no-underline"
           >
             Take the Quiz <ArrowRight className="w-4 h-4" />
           </Link>

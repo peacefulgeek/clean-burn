@@ -1,43 +1,41 @@
+/*
+ * DESIGN: "Luminous Awakening" — Dark cards, amber accents, warm glow on hover
+ */
 import { Link } from "wouter";
-import type { Article } from "@/data";
-import { formatDate } from "@/data";
+import { type Article, formatDate } from "@/data";
 
-interface ArticleCardProps {
+interface Props {
   article: Article;
-  variant?: "default" | "featured" | "compact";
+  variant?: "featured" | "compact" | "default";
 }
 
-export default function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
+export default function ArticleCard({ article, variant = "default" }: Props) {
   const href = `/${article.category_slug}/${article.slug}`;
 
   if (variant === "featured") {
     return (
       <Link href={href} className="group block no-underline">
-        <article className="relative overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div className="aspect-[16/9] overflow-hidden">
-            <img
-              src={article.hero_url}
-              alt={article.image_alt}
-              className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-          <div className="p-6 lg:p-8">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="category-pill">{article.category_name}</span>
-              <span className="text-xs text-[var(--charcoal)]/40">{article.reading_time} min read</span>
-            </div>
-            <h2 className="font-heading text-xl lg:text-2xl font-bold text-[var(--charcoal)] leading-tight mb-3 group-hover:text-[var(--gold)] transition-colors">
+        <div className="relative rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-[16/10] warm-glow">
+          <img
+            src={article.hero_url}
+            alt={article.image_alt || article.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+            <span className="category-pill mb-3 inline-block">{article.category_name}</span>
+            <h3 className="font-heading text-xl lg:text-2xl font-bold text-white leading-tight mb-2 group-hover:text-[var(--amber-light)] transition-colors">
               {article.title}
-            </h2>
-            <p className="text-sm text-[var(--charcoal)]/60 leading-relaxed line-clamp-2">
-              {article.meta_description}
-            </p>
-            <div className="mt-4 text-xs text-[var(--charcoal)]/40">
-              {formatDate(article.date)}
+            </h3>
+            <p className="text-sm text-white/50 line-clamp-2 max-w-lg">{article.meta_description}</p>
+            <div className="flex items-center gap-3 mt-4 text-xs text-white/40">
+              <span>{formatDate(article.date)}</span>
+              <span className="w-1 h-1 rounded-full bg-[var(--amber)]/40" />
+              <span>{article.reading_time} min read</span>
             </div>
           </div>
-        </article>
+        </div>
       </Link>
     );
   }
@@ -45,55 +43,54 @@ export default function ArticleCard({ article, variant = "default" }: ArticleCar
   if (variant === "compact") {
     return (
       <Link href={href} className="group block no-underline">
-        <article className="flex gap-4 items-start py-4 border-b border-[var(--cream)] last:border-0">
-          <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
+        <div className="flex gap-4 items-start p-3 rounded-xl hover:bg-[var(--deep-elevated)] transition-colors">
+          <div className="shrink-0 w-20 h-20 rounded-lg overflow-hidden">
             <img
               src={article.hero_url}
-              alt={article.image_alt}
-              className="w-full h-full object-cover"
+              alt={article.image_alt || article.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
             />
           </div>
           <div className="flex-1 min-w-0">
-            <span className="text-[10px] font-medium text-[var(--gold)] uppercase tracking-wider">{article.category_name}</span>
-            <h3 className="font-heading text-sm font-semibold text-[var(--charcoal)] leading-snug mt-1 group-hover:text-[var(--gold)] transition-colors line-clamp-2">
+            <span className="text-[10px] font-medium text-[var(--amber)] uppercase tracking-wider">{article.category_name}</span>
+            <h4 className="font-heading text-sm font-semibold text-[var(--warm-white)] leading-snug mt-1 group-hover:text-[var(--amber-light)] transition-colors line-clamp-2">
               {article.title}
-            </h3>
-            <span className="text-[10px] text-[var(--charcoal)]/40 mt-1 block">{article.reading_time} min</span>
+            </h4>
+            <span className="text-xs text-[var(--warm-subtle)] mt-1 block">{article.reading_time} min</span>
           </div>
-        </article>
+        </div>
       </Link>
     );
   }
 
-  // Default card
   return (
     <Link href={href} className="group block no-underline">
-      <article className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full">
+      <div className="bg-[var(--deep-card)] rounded-xl overflow-hidden border border-[var(--amber)]/5 warm-glow h-full">
         <div className="aspect-[16/10] overflow-hidden">
           <img
             src={article.hero_url}
-            alt={article.image_alt}
-            className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+            alt={article.image_alt || article.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
         </div>
-        <div className="p-5">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="category-pill text-[10px]">{article.category_name}</span>
-            <span className="text-[10px] text-[var(--charcoal)]/40">{article.reading_time} min</span>
+        <div className="p-5 lg:p-6">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="category-pill">{article.category_name}</span>
+            <span className="text-xs text-[var(--warm-subtle)]">{article.reading_time} min</span>
           </div>
-          <h3 className="font-heading text-base font-bold text-[var(--charcoal)] leading-snug mb-2 group-hover:text-[var(--gold)] transition-colors line-clamp-2">
+          <h3 className="font-heading text-base lg:text-lg font-semibold text-[var(--warm-white)] leading-snug mb-2 group-hover:text-[var(--amber-light)] transition-colors line-clamp-2">
             {article.title}
           </h3>
-          <p className="text-xs text-[var(--charcoal)]/50 leading-relaxed line-clamp-2">
+          <p className="text-sm text-[var(--warm-subtle)] line-clamp-2 leading-relaxed">
             {article.meta_description}
           </p>
-          <div className="mt-3 text-[10px] text-[var(--charcoal)]/35">
-            {formatDate(article.date)}
+          <div className="mt-4 pt-4 border-t border-[var(--amber)]/5">
+            <span className="text-xs text-[var(--warm-subtle)]">{formatDate(article.date)}</span>
           </div>
         </div>
-      </article>
+      </div>
     </Link>
   );
 }

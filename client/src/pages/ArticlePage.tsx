@@ -1,10 +1,14 @@
+/*
+ * DESIGN: "Luminous Awakening" — Immersive dark reading experience
+ * Full-bleed hero image, dark body with warm amber typography
+ */
+import { useEffect } from "react";
 import { useParams, Link, Redirect } from "wouter";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import ArticleCard from "@/components/ArticleCard";
-import { getArticleBySlug, getRelatedArticles, formatDate, SITE_CONFIG, getCategoryBySlug } from "@/data";
+import { getArticleBySlug, getRelatedArticles, formatDate, SITE_CONFIG } from "@/data";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
-import { useEffect } from "react";
 
 export default function ArticlePage() {
   const params = useParams<{ category: string; slug: string }>();
@@ -18,8 +22,7 @@ export default function ArticlePage() {
     return <Redirect to="/404" />;
   }
 
-  const category = getCategoryBySlug(article.category_slug);
-  const related = getRelatedArticles(article, 4);
+  const related = getRelatedArticles(article, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -65,7 +68,6 @@ export default function ArticlePage() {
         },
       };
     }).filter(q => q.name && q.acceptedAnswer.text);
-
     if (faqItems.length > 0) {
       faqJsonLd = {
         "@context": "https://schema.org",
@@ -99,109 +101,138 @@ export default function ArticlePage() {
         />
       )}
 
-      {/* Hero */}
-      <div className="relative">
-        <div className="aspect-[21/9] lg:aspect-[3/1] overflow-hidden">
-          <img
-            src={article.hero_url}
-            alt={article.image_alt}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
-      </div>
+      {/* ═══ HERO ═══ */}
+      <section className="relative h-[60vh] lg:h-[70vh] overflow-hidden">
+        <img
+          src={article.hero_url}
+          alt={article.image_alt || article.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/50 to-[var(--deep)]/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--deep)]/40 to-transparent" />
+      </section>
 
-      <article className="container max-w-3xl mx-auto px-4 -mt-16 relative z-10">
-        {/* Article header card */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-10 mb-8">
+      {/* ═══ ARTICLE CONTENT ═══ */}
+      <div className="bg-[var(--deep)] relative">
+        <div className="container max-w-3xl -mt-32 relative z-10">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-4 text-xs text-[var(--charcoal)]/40">
-            <Link href="/" className="hover:text-[var(--gold)] transition-colors no-underline">Home</Link>
-            <span>/</span>
-            <Link href={`/category/${article.category_slug}`} className="hover:text-[var(--gold)] transition-colors no-underline">
+          <div className="flex items-center gap-2 mb-6 text-xs text-[var(--warm-subtle)]">
+            <Link href="/" className="hover:text-[var(--amber)] transition-colors no-underline">Home</Link>
+            <span className="text-[var(--amber)]/30">/</span>
+            <Link href={`/category/${article.category_slug}`} className="hover:text-[var(--amber)] transition-colors no-underline">
               {article.category_name}
             </Link>
           </div>
 
-          <span className="category-pill mb-4 inline-block">{article.category_name}</span>
+          {/* Meta */}
+          <div className="flex flex-wrap items-center gap-3 mb-5">
+            <span className="category-pill">{article.category_name}</span>
+            <div className="flex items-center gap-4 text-xs text-[var(--warm-subtle)]">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                {formatDate(article.date)}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" />
+                {article.reading_time} min read
+              </span>
+            </div>
+          </div>
 
-          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--charcoal)] leading-tight mb-4">
+          {/* Title */}
+          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight mb-6">
             {article.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--charcoal)]/40">
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              {formatDate(article.date)}
+          {/* Subtitle */}
+          <p className="text-lg text-[var(--warm-muted)] leading-relaxed mb-8">
+            {article.meta_description}
+          </p>
+
+          {/* Author line */}
+          <div className="flex items-center gap-3 pb-8 border-b border-[var(--amber)]/10">
+            <div className="w-10 h-10 rounded-full bg-[var(--amber)]/10 flex items-center justify-center">
+              <span className="text-sm font-heading font-bold text-[var(--amber)]">K</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
-              {article.reading_time} min read
-            </div>
-            <span>
-              By{" "}
-              <a href={SITE_CONFIG.author.link} className="text-[var(--gold)] no-underline hover:underline">
+            <div>
+              <a
+                href={SITE_CONFIG.author.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-[var(--warm-white)] hover:text-[var(--amber)] transition-colors no-underline"
+              >
                 {SITE_CONFIG.author.name}
               </a>
-            </span>
+              <p className="text-xs text-[var(--warm-subtle)]">{SITE_CONFIG.author.title}</p>
+            </div>
           </div>
         </div>
 
-        {/* Article body */}
-        <div
-          className="article-body bg-white rounded-2xl shadow-sm p-6 lg:p-10 mb-8"
-          dangerouslySetInnerHTML={{ __html: article.body_html }}
-        />
+        {/* ═══ ARTICLE BODY ═══ */}
+        <div className="container max-w-3xl py-12">
+          <div
+            className="article-body"
+            dangerouslySetInnerHTML={{ __html: article.body_html }}
+          />
+        </div>
 
-        {/* Author box */}
-        <div className="bg-[var(--cream)] rounded-2xl p-6 lg:p-8 mb-8">
-          <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-full bg-[var(--gold)]/20 flex items-center justify-center shrink-0">
-              <span className="font-heading text-lg font-bold text-[var(--gold)]">K</span>
-            </div>
-            <div>
-              <h3 className="font-heading text-base font-bold text-[var(--charcoal)] mb-1">
-                Written by {SITE_CONFIG.author.name}
-              </h3>
-              <p className="text-xs text-[var(--charcoal)]/50 mb-2">{SITE_CONFIG.author.title}</p>
-              <p className="text-sm text-[var(--charcoal)]/60 leading-relaxed">
-                {SITE_CONFIG.author.bio}
-              </p>
-              <a
-                href={SITE_CONFIG.author.link}
-                className="inline-block mt-3 text-sm text-[var(--gold)] hover:text-[var(--charcoal)] transition-colors no-underline"
-              >
-                kalesh.love →
-              </a>
+        {/* ═══ AUTHOR BOX ═══ */}
+        <div className="container max-w-3xl pb-12">
+          <div className="bg-[var(--deep-card)] border border-[var(--amber)]/8 rounded-2xl p-6 lg:p-8">
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-full bg-[var(--amber)]/10 flex items-center justify-center shrink-0">
+                <span className="text-xl font-heading font-bold text-[var(--amber)]">K</span>
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-[var(--warm-white)] mb-1">
+                  Written by {SITE_CONFIG.author.name}
+                </h3>
+                <p className="text-sm text-[var(--amber)] mb-3">{SITE_CONFIG.author.title}</p>
+                <p className="text-sm text-[var(--warm-subtle)] leading-relaxed mb-4">
+                  {SITE_CONFIG.author.bio}
+                </p>
+                <a
+                  href={SITE_CONFIG.author.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[var(--amber)] hover:text-[var(--amber-glow)] transition-colors no-underline"
+                >
+                  kalesh.love →
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Back link */}
-        <Link
-          href={`/category/${article.category_slug}`}
-          className="inline-flex items-center gap-2 text-sm text-[var(--charcoal)]/50 hover:text-[var(--gold)] transition-colors no-underline mb-12"
-        >
-          <ArrowLeft className="w-4 h-4" /> More in {article.category_name}
-        </Link>
-      </article>
+        <div className="container max-w-3xl pb-12">
+          <Link
+            href={`/category/${article.category_slug}`}
+            className="inline-flex items-center gap-2 text-sm text-[var(--warm-subtle)] hover:text-[var(--amber)] transition-colors no-underline"
+          >
+            <ArrowLeft className="w-4 h-4" /> More in {article.category_name}
+          </Link>
+        </div>
 
-      {/* Related articles */}
-      {related.length > 0 && (
-        <section className="bg-[var(--cream)]/50 py-16">
-          <div className="container">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="w-2 h-2 rounded-full bg-[var(--gold)]" />
-              <h2 className="font-heading text-xl font-bold text-[var(--charcoal)]">Keep Reading</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {related.map(a => (
-                <ArticleCard key={a.slug} article={a} />
-              ))}
+        {/* ═══ RELATED ARTICLES ═══ */}
+        {related.length > 0 && (
+          <div className="bg-[var(--deep-card)] py-16 lg:py-20">
+            <div className="container">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-8 h-px bg-[var(--amber)]" />
+                <h2 className="font-heading text-sm font-semibold text-[var(--amber)] uppercase tracking-[0.12em]">
+                  Continue Reading
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {related.map((a) => (
+                  <ArticleCard key={a.slug} article={a} />
+                ))}
+              </div>
             </div>
           </div>
-        </section>
-      )}
+        )}
+      </div>
     </Layout>
   );
 }
