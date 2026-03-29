@@ -1,5 +1,5 @@
 /*
- * DESIGN: "Luminous Awakening" — Immersive dark reading experience
+ * DESIGN: "Luminous Awakening" — Immersive dark reading with visible hero images
  * Full-bleed hero image, dark body with warm amber typography
  */
 import { useEffect } from "react";
