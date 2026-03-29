@@ -108,7 +108,7 @@ export default function ArticlePage() {
           alt={article.image_alt || article.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-[var(--deep)]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--deep)] via-transparent to-transparent" style={{ background: 'linear-gradient(to top, var(--deep) 0%, rgba(26,22,18,0.4) 30%, transparent 60%)' }} />
       </section>
 
       {/* ═══ ARTICLE CONTENT ═══ */}
