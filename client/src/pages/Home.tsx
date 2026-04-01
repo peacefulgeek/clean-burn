@@ -180,6 +180,35 @@ export default function Home() {
         );
       })}
 
+      {/* ═══ RESOURCES SECTION ═══ */}
+      <section className="bg-[var(--deep)] py-20 lg:py-28">
+        <div className="container">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="w-8 h-px bg-[var(--amber)]" />
+            <h2 className="font-heading text-sm font-semibold text-[var(--amber)] uppercase tracking-[0.12em]">
+              Recovery Resources
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/tools" className="group bg-[var(--deep-card)] border border-[var(--amber)]/8 rounded-2xl p-8 no-underline hover:border-[var(--amber)]/20 transition-all">
+              <h3 className="font-heading text-xl font-bold text-[var(--warm-white)] mb-3 group-hover:text-[var(--amber-light)] transition-colors">Tools We Recommend</h3>
+              <p className="text-sm text-[var(--warm-subtle)] leading-relaxed mb-4">Books, supplements, devices, and resources personally vetted for recovery. Every recommendation earned its place.</p>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[var(--amber)] font-medium">Browse tools <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+            <Link href="/quizzes" className="group bg-[var(--deep-card)] border border-[var(--amber)]/8 rounded-2xl p-8 no-underline hover:border-[var(--amber)]/20 transition-all">
+              <h3 className="font-heading text-xl font-bold text-[var(--warm-white)] mb-3 group-hover:text-[var(--amber-light)] transition-colors">Recovery Quizzes</h3>
+              <p className="text-sm text-[var(--warm-subtle)] leading-relaxed mb-4">Eight focused quizzes covering dopamine sensitivity, trigger awareness, emotional regulation, and more. Private and downloadable.</p>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[var(--amber)] font-medium">Take a quiz <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+            <Link href="/assessments" className="group bg-[var(--deep-card)] border border-[var(--amber)]/8 rounded-2xl p-8 no-underline hover:border-[var(--amber)]/20 transition-all">
+              <h3 className="font-heading text-xl font-bold text-[var(--warm-white)] mb-3 group-hover:text-[var(--amber-light)] transition-colors">In-Depth Assessments</h3>
+              <p className="text-sm text-[var(--warm-subtle)] leading-relaxed mb-4">Eight comprehensive assessments with personalized recommendations. Evaluate severity, attachment style, nervous system state, and more.</p>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[var(--amber)] font-medium">Start assessment <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ CTA ═══ */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--deep-card)] to-[var(--deep)]" />

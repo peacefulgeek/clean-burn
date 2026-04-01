@@ -122,7 +122,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             <div className="relative" onMouseEnter={() => setCatOpen(true)} onMouseLeave={() => setCatOpen(false)}>
               <button className="flex items-center gap-1 text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] transition-colors">
                 Explore <ChevronDown className={`w-3.5 h-3.5 transition-transform ${catOpen ? "rotate-180" : ""}`} />
@@ -141,6 +141,15 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </div>
               )}
             </div>
+            <Link href="/tools" className="text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] transition-colors no-underline">
+              Tools
+            </Link>
+            <Link href="/quizzes" className="text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] transition-colors no-underline">
+              Quizzes
+            </Link>
+            <Link href="/assessments" className="text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] transition-colors no-underline">
+              Assessments
+            </Link>
             <Link href="/about" className="text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] transition-colors no-underline">
               About
             </Link>
@@ -148,7 +157,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               href="/quiz"
               className="text-sm font-medium px-5 py-2 bg-[var(--amber)]/10 text-[var(--amber)] border border-[var(--amber)]/20 rounded-full hover:bg-[var(--amber)]/20 hover:border-[var(--amber)]/40 transition-all no-underline"
             >
-              Take the Quiz
+              Self-Check
             </Link>
           </nav>
 
@@ -175,11 +184,20 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </Link>
               ))}
               <div className="h-px bg-[var(--amber)]/10 my-3" />
+              <Link href="/tools" className="block px-4 py-3 text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] rounded-lg no-underline">
+                Tools We Recommend
+              </Link>
+              <Link href="/quizzes" className="block px-4 py-3 text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] rounded-lg no-underline">
+                Quizzes
+              </Link>
+              <Link href="/assessments" className="block px-4 py-3 text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] rounded-lg no-underline">
+                Assessments
+              </Link>
               <Link href="/about" className="block px-4 py-3 text-sm text-[var(--warm-muted)] hover:text-[var(--warm-white)] rounded-lg no-underline">
                 About
               </Link>
               <Link href="/quiz" className="block px-4 py-3 text-sm font-medium text-[var(--amber)] no-underline">
-                Take the Quiz
+                Self-Check
               </Link>
             </nav>
           </div>
@@ -220,23 +238,34 @@ export default function Layout({ children }: { children: ReactNode }) {
               <h4 className="font-heading font-semibold text-sm text-[var(--amber)] uppercase tracking-wider mb-4">Pages</h4>
               <ul className="space-y-2.5">
                 <li><Link href="/about" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">About</Link></li>
-                <li><Link href="/quiz" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Self-Assessment</Link></li>
+                <li><Link href="/tools" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Tools We Recommend</Link></li>
+                <li><Link href="/quizzes" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Quizzes</Link></li>
+                <li><Link href="/assessments" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Assessments</Link></li>
+                <li><Link href="/quiz" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Self-Check</Link></li>
                 <li><Link href="/privacy" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="text-sm text-[var(--warm-subtle)] hover:text-[var(--warm-white)] transition-colors no-underline">Terms of Use</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-heading font-semibold text-sm text-[var(--amber)] uppercase tracking-wider mb-4">Author</h4>
-              <p className="text-sm text-[var(--warm-subtle)] leading-relaxed mb-3">
-                {SITE_CONFIG.author.name} — {SITE_CONFIG.author.title}
-              </p>
+              <div className="flex items-center gap-3 mb-3">
+                <img
+                  src={SITE_CONFIG.author.photo}
+                  alt={SITE_CONFIG.author.name}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-[var(--amber)]/20"
+                />
+                <div>
+                  <p className="text-sm font-medium text-[var(--warm-white)]">{SITE_CONFIG.author.name}</p>
+                  <p className="text-xs text-[var(--warm-subtle)]">{SITE_CONFIG.author.title}</p>
+                </div>
+              </div>
               <a
                 href={SITE_CONFIG.author.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-[var(--amber)] hover:text-[var(--amber-glow)] transition-colors no-underline"
               >
-                kalesh.love →
+                Visit kalesh.love →
               </a>
             </div>
           </div>
@@ -249,6 +278,9 @@ export default function Layout({ children }: { children: ReactNode }) {
               By <a href={SITE_CONFIG.author.link} target="_blank" rel="noopener noreferrer" className="text-[var(--amber)]/70 hover:text-[var(--amber)] transition-colors no-underline">{SITE_CONFIG.author.name}</a>
             </p>
           </div>
+          <p className="text-center text-[10px] text-[var(--warm-subtle)]/50 mt-4">
+            As an Amazon Associate I earn from qualifying purchases.
+          </p>
         </div>
       </footer>
       <CookieConsent />

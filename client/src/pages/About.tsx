@@ -1,5 +1,5 @@
 /*
- * DESIGN: "Luminous Awakening" — Dark about page
+ * DESIGN: "Luminous Awakening" — Dark about page with Kalesh photo
  */
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -32,6 +32,7 @@ export default function About() {
               url: SITE_CONFIG.author.link,
               jobTitle: SITE_CONFIG.author.title,
               description: SITE_CONFIG.author.bio,
+              image: SITE_CONFIG.author.photo,
             },
           }),
         }}
@@ -71,12 +72,14 @@ export default function About() {
 
             <div className="glow-line my-12" />
 
-            {/* Author section */}
+            {/* Author section with photo */}
             <div className="bg-[var(--deep-card)] border border-[var(--amber)]/8 rounded-2xl p-8 lg:p-10">
-              <div className="flex items-start gap-5">
-                <div className="w-16 h-16 rounded-full bg-[var(--amber)]/10 flex items-center justify-center shrink-0">
-                  <span className="text-2xl font-heading font-bold text-[var(--amber)]">K</span>
-                </div>
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <img
+                  src={SITE_CONFIG.author.photo}
+                  alt={SITE_CONFIG.author.name}
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-[var(--amber)]/20 shrink-0"
+                />
                 <div>
                   <h2 className="font-heading text-2xl font-bold text-white mb-1">
                     {SITE_CONFIG.author.name}
@@ -84,7 +87,7 @@ export default function About() {
                   <p className="text-sm text-[var(--amber)] mb-4">{SITE_CONFIG.author.title}</p>
                   <div className="space-y-3 text-[var(--warm-muted)] leading-relaxed">
                     <p>
-                      Kalesh is a consciousness teacher and writer whose work explores the intersection of ancient contemplative traditions and modern neuroscience. With decades of practice in meditation, breathwork, and somatic inquiry, he guides others toward embodied awareness — the kind that changes how you actually live, not just how you think about living.
+                      Kalesh is a mystic and spiritual advisor who brings ancient wisdom and depth to life's biggest decisions. His work explores the intersection of contemplative traditions and modern neuroscience. With decades of practice in meditation, breathwork, and somatic inquiry, he guides others toward embodied awareness — the kind that changes how you actually live, not just how you think about living.
                     </p>
                     <p>
                       His writing draws equally from Buddhist psychology, Taoist philosophy, Vedantic inquiry, and contemporary research on the brain and nervous system. He does not belong to any single tradition, and his work reflects that independence — a willingness to follow the truth wherever it leads, regardless of which lineage it comes from.
@@ -93,14 +96,24 @@ export default function About() {
                       The Clean Burn represents one facet of his broader work: the application of consciousness-based practices to one of the most pervasive and least honestly discussed challenges of modern life.
                     </p>
                   </div>
-                  <a
-                    href={SITE_CONFIG.author.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-4 text-sm text-[var(--amber)] hover:text-[var(--amber-glow)] transition-colors no-underline"
-                  >
-                    Visit kalesh.love <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  <div className="flex flex-wrap items-center gap-3 mt-5">
+                    <a
+                      href={SITE_CONFIG.author.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--amber)] text-[var(--deep)] text-sm font-semibold rounded-lg hover:bg-[var(--amber-light)] transition-colors no-underline"
+                    >
+                      Book a Session
+                    </a>
+                    <a
+                      href={SITE_CONFIG.author.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-[var(--amber)] hover:text-[var(--amber-glow)] transition-colors no-underline"
+                    >
+                      Visit kalesh.love <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,10 +148,10 @@ export default function About() {
 
             <div className="glow-line my-12" />
 
-            {/* Disclaimer */}
+            {/* Disclaimer - no contact info */}
             <div className="border-t border-[var(--amber)]/8 pt-8">
               <p className="text-xs text-[var(--warm-subtle)] leading-relaxed">
-                <strong className="text-[var(--warm-muted)]">Disclaimer:</strong> The Clean Burn is an educational resource and is not a substitute for professional medical, psychological, or psychiatric advice. If you are in crisis, please contact a licensed mental health professional or call the SAMHSA National Helpline at 1-800-662-4357.
+                <strong className="text-[var(--warm-muted)]">Disclaimer:</strong> The Clean Burn is an educational resource and is not a substitute for professional medical, psychological, or psychiatric advice. The content on this site is provided for informational purposes only. Always consult a licensed healthcare professional before making changes to your health or wellness routine. If you are experiencing a mental health crisis, please reach out to a qualified professional in your area.
               </p>
             </div>
           </div>

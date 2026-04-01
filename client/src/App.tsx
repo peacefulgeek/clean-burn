@@ -9,6 +9,9 @@ import ArticlePage from "./pages/ArticlePage";
 import CategoryPage from "./pages/CategoryPage";
 import About from "./pages/About";
 import Quiz from "./pages/Quiz";
+import Quizzes from "./pages/Quizzes";
+import Assessments from "./pages/Assessments";
+import Tools from "./pages/Tools";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 
@@ -18,6 +21,9 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/quiz" component={Quiz} />
+      <Route path="/quizzes" component={Quizzes} />
+      <Route path="/assessments" component={Assessments} />
+      <Route path="/tools" component={Tools} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route path="/category/:slug" component={CategoryPage} />

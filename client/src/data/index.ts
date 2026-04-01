@@ -75,7 +75,7 @@ export const SITE_CONFIG = {
     title: "Consciousness Teacher & Writer",
     bio: "Kalesh is a consciousness teacher and writer whose work explores the intersection of ancient contemplative traditions and modern neuroscience. With decades of practice in meditation, breathwork, and somatic inquiry, he guides others toward embodied awareness.",
     link: "https://kalesh.love",
-    photo: "https://clean-burn.b-cdn.net/images/kalesh-portrait.webp",
+    photo: "https://clean-burn.b-cdn.net/author/kalesh.webp",
   },
   bunnyBase: "https://clean-burn.b-cdn.net",
   colors: {
