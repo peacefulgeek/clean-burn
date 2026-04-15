@@ -9,6 +9,7 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import ArticleCard from "@/components/ArticleCard";
 import { getArticleBySlug, getRelatedArticles, formatDate, SITE_CONFIG } from "@/data";
+import AutoAffiliates from "@/components/AutoAffiliates";
 import { ArrowLeft, Clock, Calendar, ExternalLink, ShieldCheck } from "lucide-react";
 
 export default function ArticlePage() {
@@ -189,10 +190,7 @@ export default function ArticlePage() {
 
               {/* ═══ ARTICLE BODY ═══ */}
               <div className="py-12">
-                <div
-                  className="article-body"
-                  dangerouslySetInnerHTML={{ __html: article.body_html }}
-                />
+                <AutoAffiliates article={article} />
               </div>
 
               {/* ═══ HEALTH DISCLAIMER CARD ═══ */}
