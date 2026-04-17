@@ -33,6 +33,9 @@ ARTICLES_PATH = "client/src/data/articles.json"
 AFFILIATE_TAG = "spankyspinola-20"
 LOG_PATH = "content-refresh-log.txt"
 
+# Master toggle - set to True to enable automated content refresh
+AUTO_GEN_ENABLED = True
+
 INTERJECTIONS = [
     "Stay with me here.",
     "I know, I know.",
@@ -73,6 +76,10 @@ def count_words(text):
     return len(clean.split())
 
 def main():
+    if not AUTO_GEN_ENABLED:
+        print("AUTO_GEN_ENABLED is False. Skipping 90-day refresh.")
+        return
+
     with open(ARTICLES_PATH) as f:
         articles = json.load(f)
 
@@ -150,7 +157,12 @@ def main():
                     article["meta_description"] = new_desc
                     mods.append("meta_description refreshed")
 
-        # 5. Final safety checks
+        # 5. Ensure article has at least 3 Amazon links
+        amazon_count = len(re.findall(r'amazon\.com', body))
+        if amazon_count < 3:
+            mods.append(f"WARNING: only {amazon_count} Amazon links (need 3+)")
+
+        # 6. Final safety checks
         # Remove any banned words that crept in
         body = BANNED_WORDS.sub(lambda m: random.choice(['real', 'deep', 'complex', 'layered', 'genuine']), body)
         # Remove em dashes

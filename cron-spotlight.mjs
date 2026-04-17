@@ -36,6 +36,9 @@ const BUNNY = {
 
 const TAG = "spankyspinola-20";
 
+// Master toggle - set to true to enable automated publishing
+const AUTO_GEN_ENABLED = true;
+
 // ── Spotlight queue (same as in weekly-spotlight-cron.ts) ──
 // These are the next articles to be auto-published, one per Saturday.
 // When the queue is exhausted, the script logs a warning and exits.
@@ -62,6 +65,10 @@ function getToday() {
 }
 
 async function main() {
+  if (!AUTO_GEN_ENABLED) {
+    console.log(`[spotlight-cron] AUTO_GEN_ENABLED is false. Skipping.`);
+    return;
+  }
   console.log(`[spotlight-cron] Running at ${new Date().toISOString()}`);
 
   // Load existing articles

@@ -20,6 +20,7 @@ All credentials are in-code. No env vars needed.
 
 import json
 import os
+import re
 import sys
 import time
 import requests
@@ -39,6 +40,9 @@ BUNNY_STORAGE_HOST = "ny.storage.bunnycdn.com"
 BUNNY_ACCESS_KEY = "518477f6-0581-4a01-98b6bbf6a63e-7d7e-4e50"
 BUNNY_CDN_BASE = "https://clean-burn.b-cdn.net"
 AFFILIATE_TAG = "spankyspinola-20"
+
+# Master toggle - set to True to enable automated publishing
+AUTO_GEN_ENABLED = True
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ARTICLES_PATH = os.path.join(SCRIPT_DIR, "client/src/data/articles.json")
@@ -231,6 +235,11 @@ def extract_body_html_from_ts(slug):
 
 def main():
     today = datetime.utcnow().strftime("%Y-%m-%d")
+
+    if not AUTO_GEN_ENABLED:
+        print(f"[spotlight] {today} - AUTO_GEN_ENABLED is False. Skipping.")
+        return
+
     print(f"[spotlight] {today} - Checking for next spotlight to publish...")
 
     # Load existing articles
@@ -300,6 +309,23 @@ def main():
             print(f"[spotlight] WARNING: FAL.ai generation failed ({e}), using placeholder hero URL")
     else:
         print(f"[spotlight] No FAL_KEY set - hero image must be uploaded manually to: {hero_url}")
+
+    # ── Validate: body_html must have 3-4 Amazon links with correct tag ──
+    amazon_count = len(re.findall(r'amazon\.com', body_html))
+    if amazon_count < 3:
+        print(f"[spotlight] ERROR: body_html for {slug} has only {amazon_count} Amazon links (need 3-4).")
+        print(f"[spotlight] Add more product links to the body_html in weekly-spotlight-cron.ts before publishing.")
+        sys.exit(1)
+    # Ensure all Amazon links have the affiliate tag
+    def fix_tag(m):
+        url = m.group(1)
+        if f'tag={AFFILIATE_TAG}' in url:
+            return m.group(0)
+        url = re.sub(r'[?&]tag=[^&"]*', '', url)
+        sep = '&' if '?' in url else '?'
+        return f'href="{url}{sep}tag={AFFILIATE_TAG}"'
+    body_html = re.sub(r'href="(https?://(?:www\.)?amazon\.com/[^"]*)"', fix_tag, body_html)
+    print(f"[spotlight] Validated: {amazon_count} Amazon links with {AFFILIATE_TAG} tag")
 
     # Build the article object
     article = {

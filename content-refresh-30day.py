@@ -24,7 +24,14 @@ ARTICLES_PATH = "client/src/data/articles.json"
 AFFILIATE_TAG = "spankyspinola-20"
 LOG_PATH = "content-refresh-log.txt"
 
+# Master toggle - set to True to enable automated content refresh
+AUTO_GEN_ENABLED = True
+
 def main():
+    if not AUTO_GEN_ENABLED:
+        print("AUTO_GEN_ENABLED is False. Skipping 30-day refresh.")
+        return
+
     with open(ARTICLES_PATH) as f:
         articles = json.load(f)
 
@@ -67,7 +74,12 @@ def main():
                     body = body.replace(f'href="{old_href}"', f'href="{new_href}"', 1)
                     mods.append(f"link: {old_href} -> {new_href}")
 
-        # 3. Fix any Amazon links missing affiliate tag
+        # 3. Ensure article has at least 3 Amazon links
+        amazon_count = len(re.findall(r'amazon\.com', body))
+        if amazon_count < 3:
+            mods.append(f"WARNING: only {amazon_count} Amazon links (need 3+)")
+
+        # 4. Fix any Amazon links missing affiliate tag
         def fix_amazon_tag(match):
             url = match.group(1)
             if f"tag={AFFILIATE_TAG}" not in url:

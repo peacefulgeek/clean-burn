@@ -88,7 +88,7 @@ const CATEGORIES: Category[] = [
       },
       {
         name: "The Addiction Recovery Workbook",
-        url: az("1647397588"),
+        url: az("1401944485"),
         description: "A structured CBT-based workbook with exercises designed specifically for addiction recovery. Useful for people who want guided prompts rather than blank pages.",
         isAmazon: true,
       },
@@ -156,7 +156,7 @@ const CATEGORIES: Category[] = [
       },
       {
         name: "Yoga Mat — Manduka PRO",
-        url: az("B0002TZ3JI"),
+        url: az("1401944485"),
         description: "The Manduka PRO is the last yoga mat you will ever buy. Dense, grippy, and built to last decades. Yoga reconnects you with your body in ways that directly counteract the dissociation that compulsive porn use creates.",
         isAmazon: true,
       },
