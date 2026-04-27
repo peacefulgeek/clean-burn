@@ -49,8 +49,18 @@ function serveFile(res, filePath) {
 }
 
 const server = createServer((req, res) => {
-  const url = new URL(req.url, `http://localhost:${PORT}`);
+  const host = (req.headers.host || '').toLowerCase();
+  const url = new URL(req.url, `http://${host}`);
   const pathname = url.pathname;
+
+  // 301 redirect www -> non-www (prevents duplicate content in Google)
+  if (host.startsWith('www.')) {
+    const bare = host.slice(4);
+    const location = `https://${bare}${req.url}`;
+    res.writeHead(301, { 'Location': location, 'Cache-Control': 'public, max-age=31536000' });
+    res.end();
+    return;
+  }
 
   // Health check
   if (pathname === '/health') {
